@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mongo-db:
+    image: 'mongo:3.6'
+    ports:
+      - '27017:27017'
+    hostname: db-server
+    volumes:
+      - db-volume:/data/db
+      - db-config-volume:/data/configdb
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+  api:
+    depends_on:
+      - mongo-db
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./api
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    command: "npm run start"
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    stdin_open: true
+volumes:
+  db-volume:
+  db-config-volume:
