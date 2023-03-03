@@ -7,7 +7,25 @@
 bash scripts/setup.sh
 ```
 
-(2)docker composeでコンテナを立ち上げます
+(2)api側の設定
+src/config/config.envを以下の内容で作成
+```
+NODE_ENV=development
+PORT=5000
+DB_STRING=mongodb://mongo-db:27017/testdb
+```
+以下のコマンドでキーペアを作成
+```
+node src/keys/generateKeypair.js
+```
+
+(3)client側の設定
+.envを以下の内容で作成
+```
+SKIP_PREFLIGHT_CHECK=true
+```
+
+(4)docker composeでコンテナを立ち上げます
 ```
 docker compose up --build
 ```
