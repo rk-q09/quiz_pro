@@ -8,6 +8,7 @@ bash scripts/setup.sh
 ```
 
 (2)api側の設定
+
 src/config/config.envを以下の内容で作成
 ```
 NODE_ENV=development
@@ -20,6 +21,7 @@ node src/keys/generateKeypair.js
 ```
 
 (3)client側の設定
+
 .envを以下の内容で作成
 ```
 SKIP_PREFLIGHT_CHECK=true
